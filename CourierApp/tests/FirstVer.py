@@ -1,11 +1,12 @@
 import flet as ft
 from flet_core import LinearGradient
 
+# •	Регистрация и управление клиентами, оформление туров.
+
+
 # TODO:
 #  https://habr.com/ru/articles/237931/                                -       DPI, screen resolution
 #  https://danilin.biz/ios-device-display-resolution-reference         -       logic iphone screen resolution
-
-
 
 def main(page: ft.Page):
     page.bgcolor = 'white'
@@ -13,7 +14,7 @@ def main(page: ft.Page):
     page.window.height = 844
     page.window.always_on_top = True
     page.window.maximizable = False
-    page.window.resizable =False
+    page.window.resizable = False
     page.spacing = 0
     page.padding = 0
 
@@ -29,7 +30,6 @@ def main(page: ft.Page):
 
         page.update()
 
-
     mytab = ft.Tabs(
         selected_index=0,
         animation_duration=300,
@@ -43,10 +43,10 @@ def main(page: ft.Page):
         on_change=youchangechoice,
 
         tabs=[
-            ft.Tab(text='Home', icon='Home'),
-            ft.Tab(text='Face', icon='face'),
-            ft.Tab(text='Person', icon='person'),
-            ft.Tab(text='Notifications', icon='notification_add'),
+            ft.Tab(text='Авиабилеты', icon='Home'),
+            ft.Tab(text='Ближайшие рейсы', icon='face'),
+            ft.Tab(text='Мои билеты', icon='person'),
+            ft.Tab(text='Хз', icon='notification_add')
         ]
     )
 
@@ -81,5 +81,6 @@ def main(page: ft.Page):
             )
         ])
     )
+
 
 ft.app(target=main)
