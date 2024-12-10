@@ -6,13 +6,15 @@ def login_screen(page: ft.Page):
     }
 
     phone = ft.TextField(label='Номер телефона', width=300, border_radius=10, prefix_text='+7 ',
+                         label_style=ft.TextStyle(color='black', size=20),
                          text_style=ft.TextStyle(color='black', size=20),
                          prefix_style=ft.TextStyle(color='black', size=20),
-                         max_length=10,
+                         max_length=10, border='none', fill_color='#F9F9F9',
                          input_filter=ft.InputFilter(allow=True, regex_string=r"^[0-9]*$", replacement_string=""))
 
     password = ft.TextField(label="Пароль", width=300, border_radius=10, password=True, can_reveal_password=True,
-                            text_style=ft.TextStyle(color='black', size=20),
+                            label_style=ft.TextStyle(color='black', size=20),
+                            text_style=ft.TextStyle(color='black', size=20), border='none', fill_color='#F9F9F9'
                             )
 
 
@@ -22,11 +24,11 @@ def login_screen(page: ft.Page):
     def go_to_welcome(e):
 
         if not phone.value:
-            phone.error_text = "missing phone..."
+            phone.error_text = "Введите номер..."
             page.update()
 
         elif not password.value:
-            password.error_text = "missing password..."
+            password.error_text = ft.Text('Введите пароль', color='red', size=20)
             page.update()
 
         elif password.value in managers and managers[password.value] == password.value:
@@ -48,7 +50,8 @@ def login_screen(page: ft.Page):
                 ft.Text('Авиахуйня', size=30, color='black'),
                 phone,
                 password,
-                ft.ElevatedButton("Login", on_click=go_to_welcome, bgcolor='#F1F1F1', width=300),
+                ft.ElevatedButton(content=ft.Text('Войти', size=20, color='black'),
+                                  on_click=go_to_welcome, bgcolor='#F1F1F1', width=300),
             ],
             # scroll="always",
             spacing=20,
