@@ -84,3 +84,4 @@ def main_screen(page: ft.Page):
         ],
         bgcolor='#FFFFFF'
     )
+
