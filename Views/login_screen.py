@@ -22,10 +22,10 @@ def login_screen(page: ft.Page):
 
 
     default_users = {}
-    managers = {'+79145386123': 'raze'}
+    managers = {'1': '1'}
 
     def go_to_welcome(e):
-        phone.value = f'+7{phone.value}'
+        phone.value = f'{phone.value}'
         if not phone.value:
             phone.error_text = "Введите номер..."
             page.update()
