@@ -9,20 +9,23 @@ def login_screen(page: ft.Page):
                          label_style=ft.TextStyle(color='black', size=20),
                          text_style=ft.TextStyle(color='black', size=20),
                          prefix_style=ft.TextStyle(color='black', size=20),
+                         error_style=ft.TextStyle(color='red', size=15),
+                         adaptive=True,
                          max_length=10, border='none', fill_color='#F9F9F9',
                          input_filter=ft.InputFilter(allow=True, regex_string=r"^[0-9]*$", replacement_string=""))
 
     password = ft.TextField(label="Пароль", width=300, border_radius=10, password=True, can_reveal_password=True,
-                            label_style=ft.TextStyle(color='black', size=20),
+                            label_style=ft.TextStyle(color='black', size=20), adaptive=True,
+                            error_style=ft.TextStyle(color='red', size=15),
                             text_style=ft.TextStyle(color='black', size=20), border='none', fill_color='#F9F9F9'
                             )
 
 
     default_users = {}
-    managers = {}
+    managers = {'+79145386123': 'raze'}
 
     def go_to_welcome(e):
-
+        phone.value = f'+7{phone.value}'
         if not phone.value:
             phone.error_text = "Введите номер..."
             page.update()
@@ -31,12 +34,16 @@ def login_screen(page: ft.Page):
             password.error_text = ft.Text('Введите пароль', color='red', size=20)
             page.update()
 
-        elif password.value in managers and managers[password.value] == password.value:
-            # если менеджер обнаружен
-            pass
+        # elif len(password.value) < 8:
+        #     password.error_text = ft.Text('Длина пароля должа быть больше 8 символов', color='red', size=20)
+        #     page.update()
+
+        elif phone.value in managers and managers[phone.value] == password.value:
+            print(f'manager: {phone.value}, password: {password.value}')
+            page.go("/manager_mainscreen")
 
         else:
-            print(f'user: +7{phone.value}, password: {password.value}')
+            print(f'user: {phone.value}, password: {password.value}')
             page.go("/user_mainscreen")
 
     # TODO:
