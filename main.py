@@ -1,7 +1,9 @@
 import flet as ft
-from views.user_main_screen import main_screen
-from views.login_screen import login_screen
-from views.manager_main_screen import manager_mainscreen
+
+from Views.Tabs.UserTabs import closest_flights, my_orders, notifications, main_tab
+from Views.user_main_screen import main_screen
+from Views.manager_main_screen import manager_mainscreen
+from Views.login_screen import login_screen
 
 
 def main(page: ft.Page):
@@ -21,12 +23,24 @@ def main(page: ft.Page):
         page.views.clear()
         page.views.append(login_screen(page))
 
-
         if page.route == "/user_mainscreen":
             page.views.append(main_screen(page))
 
         elif page.route == '/manager_mainscreen':
             page.views.append(manager_mainscreen(page))
+
+        # user tabs
+        elif page.route == '/user_mainscreen/main_tab':
+            page.views.append(main_tab(page))
+        elif page.route == '/user_mainscreen/closest_flights':
+            page.views.append(closest_flights(page))
+        elif page.route == '/user_mainscreen/my_orders':
+            page.views.append(my_orders(page))
+        elif page.route == '/user_mainscreen/notifications':
+            page.views.append(notifications(page))
+
+        # manager tabs
+
         page.update()
 
     def view_pop(view):
