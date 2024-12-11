@@ -10,7 +10,7 @@ def manager_mainscreen(page: ft.Page):
                 ft.Container(
                     margin=ft.margin.only(top=page.window.height / 2),
                     alignment=ft.alignment.center,
-                    content=ft.Column([ft.Text('Home', size=30, color='black')])
+                    content=ft.Column([ft.Text('Manager', size=30, color='black')])
                 )
             ])
         ],
