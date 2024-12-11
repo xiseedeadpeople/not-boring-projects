@@ -28,7 +28,6 @@ def main_screen(page: ft.Page):
             page.add(ft.ElevatedButton('1223', height=500),)
         page.update()
 
-
     mytab = ft.Tabs(
         selected_index=0,
         animation_duration=300,
@@ -70,9 +69,12 @@ def main_screen(page: ft.Page):
             alignment=ft.MainAxisAlignment.SPACE_BETWEEN)
     )
 
+    # -------------------------------------------------------------------------------
+
+
     page.overlay.append(mybar)
     return ft.View(
-        route = '/user_mainscreen',
+        route='/user_mainscreen',
         controls=[
             ft.Column([
                 ft.Container(
@@ -84,4 +86,3 @@ def main_screen(page: ft.Page):
         ],
         bgcolor='#FFFFFF'
     )
-
