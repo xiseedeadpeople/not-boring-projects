@@ -3,29 +3,28 @@ from flet_core import LinearGradient
 
 # •	Регистрация и управление клиентами, оформление туров.
 
-
 # TODO:
 #  https://habr.com/ru/articles/237931/                                -       DPI, screen resolution
 #  https://danilin.biz/ios-device-display-resolution-reference         -       logic iphone screen resolution
 
 def main_screen(page: ft.Page):
-    cntnt = ft.Column([
-        ft.ElevatedButton(),
-        ft.ElevatedButton(),
-        ft.ElevatedButton()
-    ])
-
     def youchangechoice(e):
         """ функция, которая отвечает за выбранный таб """
         youindex = e.control.selected_index
-        namescreen = e.control.tabs[youindex].text
-        print(youindex)
 
         if youindex == 0:
-            page.add(ft.ElevatedButton('asdasd'))
+            page.go('/user_mainscreen/main_tab')
 
         if youindex == 1:
-            page.add(ft.ElevatedButton('1223', height=500),)
+            page.go('/user_mainscreen/closest_flights')
+
+        if youindex == 2:
+            page.go('/user_mainscreen/my_orders')
+
+        if youindex == 3:
+            page.go('/user_mainscreen/notifications')
+
+
         page.update()
 
     mytab = ft.Tabs(
@@ -41,10 +40,10 @@ def main_screen(page: ft.Page):
         on_change=youchangechoice,
 
         tabs=[
-            ft.Tab(text='Главная', icon='Home'),
-            ft.Tab(text='Ближайшие рейсы', icon='face'),
-            ft.Tab(text='Мои билеты', icon='person'),
-            ft.Tab(text='Хз', icon='notification_add')
+            ft.Tab(text='Главная', icon='Home'), # бронируем
+            ft.Tab(text='Ближайшие рейсы', icon='face'), # бронируем
+            ft.Tab(text='Мои билеты', icon='person'), # бронируем
+            ft.Tab(text='Уведомления', icon='notification_add') # уведомления о рейсах
         ]
     )
 
@@ -75,14 +74,8 @@ def main_screen(page: ft.Page):
     page.overlay.append(mybar)
     return ft.View(
         route='/user_mainscreen',
-        controls=[
-            ft.Column([
-                ft.Container(
-                    margin=ft.margin.only(top=page.window.height / 2),
-                    alignment=ft.alignment.center,
-                    content=ft.Column([ft.Text('Home', size=30, color='black')])
-                )
-            ])
-        ],
-        bgcolor='#FFFFFF'
+        bgcolor='white',
+        vertical_alignment=ft.MainAxisAlignment.CENTER,
+        horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+        controls=[ft.Text('main_tab', color='black', size=30)],
     )
