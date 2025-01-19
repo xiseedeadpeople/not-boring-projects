@@ -1,0 +1,73 @@
+import flet as ft
+from flet_core import LinearGradient
+from tabs.user_tabs.maintab import main_tab
+
+# •	Регистрация и управление клиентами, оформление туров.
+
+# TODO:
+#  https://habr.com/ru/articles/237931/                                -       DPI, screen resolution
+#  https://danilin.biz/ios-device-display-resolution-reference         -       logic iphone screen resolution
+
+def main_screen(page: ft.Page):
+
+    def youchangechoice(e):
+        """ функция, которая отвечает за выбранный таб """
+        youindex = e.control.selected_index
+
+        if youindex == 0:
+            page.go('/user_mainscreen/main_tab')
+
+        if youindex == 1:
+            page.go('/user_mainscreen/closest_flights')
+
+        if youindex == 2:
+            page.go('/user_mainscreen/my_orders')
+
+        if youindex == 3:
+            page.go('/user_mainscreen/notifications')
+
+
+        page.update()
+
+    mytab = ft.Tabs(
+        selected_index=0,
+        animation_duration=300,
+        unselected_label_color='black',
+        label_color='white',
+        indicator_color='white',
+        indicator_border_radius=30,
+        divider_color='black',
+        divider_height=0,
+        scrollable=True,
+        on_change=youchangechoice,
+
+        tabs=[
+            ft.Tab(text='Главная', icon='Home'), # бронируем
+            ft.Tab(text='Ближайшие рейсы', icon='face'), # бронируем
+            ft.Tab(text='Мои билеты', icon='person'), # бронируем
+            ft.Tab(text='Уведомления', icon='notification_add') # уведомления о рейсах
+        ]
+    )
+
+    mybar = ft.Container(
+        gradient=LinearGradient(begin=ft.alignment.top_left,
+                                end=ft.alignment.bottom_right,
+                                colors=['#fc4795', '#7c69f0']),
+
+        border_radius=ft.border_radius.vertical(bottom=30),
+        shadow=ft.BoxShadow(spread_radius=1, blur_radius=10, color='#fc4795'),
+        width=page.window.width,
+        height=150,
+        padding=10,
+
+        content=ft.Column([
+            ft.Row([ft.IconButton(icon='menu', icon_size=35, icon_color='white'),
+                    ft.Text(value='9/11" AVIALINES', size=30, color='white', font_family='SteppeBlack'),
+
+                    ]),
+            mytab],
+            alignment=ft.MainAxisAlignment.SPACE_BETWEEN)
+    )
+
+    page.overlay.append(mybar)
+    return main_tab(page)
