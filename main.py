@@ -1,12 +1,21 @@
 import flet as ft
+from database import init_db, SessionLocal
+from services.flight_service import FlightService
 
-from Views.Tabs.UserTabs import closest_flights, my_orders, notifications, main_tab
-from Views.user_main_screen import main_screen
-from Views.manager_main_screen import manager_mainscreen
-from Views.login_screen import login_screen
+from tabs.user_tabs.maintab import main_tab
+from tabs.user_tabs.closestflights import closest_flights
+from tabs.user_tabs.myorders import my_orders
+from tabs.user_tabs.notifstab import notifications
+from views.user_mainscr import main_screen
+from views.manager_mainscr import manager_mainscreen
+from views.login_screen import login_screen
 
 
 def main(page: ft.Page):
+    init_db()
+    db = SessionLocal()
+    flight_service = FlightService(db)
+
     page.window.width = 390
     page.window.height = 844
     page.window.always_on_top = True
@@ -14,10 +23,6 @@ def main(page: ft.Page):
     page.window.resizable = False
     page.padding = 0
     page.spacing = 0
-
-    page.fonts = {
-        "TravelingTypewriter": "fonts/TravelingTypewriter.ttf"
-    }
 
     def route_change(route):
         page.views.clear()
@@ -33,7 +38,7 @@ def main(page: ft.Page):
         elif page.route == '/user_mainscreen/main_tab':
             page.views.append(main_tab(page))
         elif page.route == '/user_mainscreen/closest_flights':
-            page.views.append(closest_flights(page))
+            page.views.append(closest_flights(page, flight_service))
         elif page.route == '/user_mainscreen/my_orders':
             page.views.append(my_orders(page))
         elif page.route == '/user_mainscreen/notifications':
@@ -50,7 +55,9 @@ def main(page: ft.Page):
 
     page.on_route_change = route_change
     page.on_view_pop = view_pop
+
     page.go(page.route)
+    # page.go("/user_mainscreen")
 
 
 ft.app(target=main)
