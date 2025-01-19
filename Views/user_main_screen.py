@@ -1,5 +1,6 @@
 import flet as ft
 from flet_core import LinearGradient
+from tabs.user_tabs.maintab import main_tab
 
 # •	Регистрация и управление клиентами, оформление туров.
 
@@ -8,6 +9,7 @@ from flet_core import LinearGradient
 #  https://danilin.biz/ios-device-display-resolution-reference         -       logic iphone screen resolution
 
 def main_screen(page: ft.Page):
+
     def youchangechoice(e):
         """ функция, которая отвечает за выбранный таб """
         youindex = e.control.selected_index
@@ -59,23 +61,13 @@ def main_screen(page: ft.Page):
         padding=10,
 
         content=ft.Column([
-            ft.Row([ft.IconButton(icon='menu', icon_size=25, icon_color='white'),
-                    ft.Text(value='Flyin', size=25, color='white', weight=ft.FontWeight.BOLD),
-                    ft.IconButton(icon='notifications', icon_size=25, icon_color='white'),
-                    ft.IconButton(icon='search', icon_size=25, icon_color='white')]
-                   ),
+            ft.Row([ft.IconButton(icon='menu', icon_size=35, icon_color='white'),
+                    ft.Text(value='9/11" AVIALINES', size=30, color='white', font_family='SteppeBlack'),
+
+                    ]),
             mytab],
             alignment=ft.MainAxisAlignment.SPACE_BETWEEN)
     )
 
-    # -------------------------------------------------------------------------------
-
-
     page.overlay.append(mybar)
-    return ft.View(
-        route='/user_mainscreen',
-        bgcolor='white',
-        vertical_alignment=ft.MainAxisAlignment.CENTER,
-        horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-        controls=[ft.Text('main_tab', color='black', size=30)],
-    )
+    return main_tab(page)
